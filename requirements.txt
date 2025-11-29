@@ -3,3 +3,5 @@ cryptography>=40.0
 Pillow>=9.0
 numpy>=1.20
 opencv-python>=4.5
+pyngrok
+gunicorn
