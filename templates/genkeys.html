@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Generate RSA Key Pair</h2>
+
+<form method="post">
+  <label>Optional passphrase (for private key)</label>
+  <input type="password" name="passphrase" placeholder="passphrase (optional)">
+  <button type="submit">Generate Keys</button>
+</form>
+
+{% if priv_pem %}
+  <h3>Private Key (PEM)</h3>
+  <textarea id="priv_pem" rows="12">{{ priv_pem }}</textarea>
+  <button onclick="downloadText('priv_pem','private_key.pem')">Download Private Key</button>
+
+  <h3>Public Key (PEM)</h3>
+  <textarea id="pub_pem" rows="8">{{ pub_pem }}</textarea>
+  <button onclick="downloadText('pub_pem','public_key.pem')">Download Public Key</button>
+
+  <p style="margin-top:8px;color:#666">Keep your private key secret. Save copies locally.</p>
+{% endif %}
+{% endblock %}

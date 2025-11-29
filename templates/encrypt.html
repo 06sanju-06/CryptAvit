@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Encrypt & Hide</h2>
+<form method="post" enctype="multipart/form-data">
+  <label>Secret message (text)</label>
+  <textarea name="secret" rows="6" required></textarea>
+
+  <label>Recipient RSA public key (PEM)</label>
+  <textarea name="recipient_pub" rows="8" placeholder="-----BEGIN PUBLIC KEY-----..." required></textarea>
+
+  <label>Choose carrier file</label>
+  <input type="file" name="carrier" required>
+
+  <label>Carrier type</label>
+  <select name="carrier_type">
+    <option value="image">Image (PNG/BMP)</option>
+    <option value="audio">Audio (WAV)</option>
+    <option value="text">Text (TXT)</option>
+    <option value="video">Video (AVI)</option>
+  </select>
+
+  <label>LSB bits (1 recommended)</label>
+  <input type="number" name="lsb_bits" min="1" max="2" value="1">
+
+  <label><input type="checkbox" name="compress"> Compress message (zlib)</label>
+
+  <button type="submit">Encrypt & Download stego file</button>
+</form>
+{% endblock %}
