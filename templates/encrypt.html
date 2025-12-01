@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Encrypt & Hide</h2>
+<h2>Encrypt &amp; Hide</h2>
+
 <form method="post" enctype="multipart/form-data">
   <label>Secret message (text)</label>
   <textarea name="secret" rows="6" required></textarea>
@@ -9,11 +10,17 @@
   <textarea name="recipient_pub" rows="8" placeholder="-----BEGIN PUBLIC KEY-----..." required></textarea>
 
   <label>Choose carrier file</label>
-  <input type="file" name="carrier" required>
+  <!-- Allow selecting PNG / JPG / JPEG / BMP explicitly -->
+  <input type="file" name="carrier" accept=".png,.jpg,.jpeg,.bmp,.wav,.txt,.avi" required>
+  <small style="display:block;margin-bottom:10px;color:#888;">
+    For images you can upload PNG, JPG, JPEG or BMP.  
+    <strong>Note:</strong> For security and correct LSB steganography, the output stego image
+    will always be saved as <code>.png</code>.
+  </small>
 
   <label>Carrier type</label>
   <select name="carrier_type">
-    <option value="image">Image (PNG/BMP)</option>
+    <option value="image">Image (PNG/JPG/JPEG/BMP – output PNG)</option>
     <option value="audio">Audio (WAV)</option>
     <option value="text">Text (TXT)</option>
     <option value="video">Video (AVI)</option>
@@ -22,8 +29,11 @@
   <label>LSB bits (1 recommended)</label>
   <input type="number" name="lsb_bits" min="1" max="2" value="1">
 
-  <label><input type="checkbox" name="compress"> Compress message (zlib)</label>
+  <label>
+    <input type="checkbox" name="compress">
+    Compress message (zlib)
+  </label>
 
-  <button type="submit">Encrypt & Download stego file</button>
+  <button type="submit">Encrypt &amp; Download stego file</button>
 </form>
 {% endblock %}

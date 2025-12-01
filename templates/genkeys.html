@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h2>Generate RSA Key Pair</h2>
 
 <form method="post">
-  <label>Optional passphrase (for private key)</label>
+  <label>Optional passphrase (protects your private key)</label>
   <input type="password" name="passphrase" placeholder="passphrase (optional)">
   <button type="submit">Generate Keys</button>
 </form>
@@ -17,6 +18,10 @@
   <textarea id="pub_pem" rows="8">{{ pub_pem }}</textarea>
   <button onclick="downloadText('pub_pem','public_key.pem')">Download Public Key</button>
 
-  <p style="margin-top:8px;color:#666">Keep your private key secret. Save copies locally.</p>
+  <p style="margin-top:10px;color:#777;">
+    ⚠️ Keep your private key safe.  
+    Anyone with your private key can decrypt your hidden messages.
+  </p>
 {% endif %}
+
 {% endblock %}
