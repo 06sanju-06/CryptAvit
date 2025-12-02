@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Extract & Decrypt</h2>
+<form method="post" enctype="multipart/form-data">
+  <label>Carrier with hidden data</label>
+  <input type="file" name="carrier" required>
+
+  <label>Carrier type</label>
+  <select name="carrier_type">
+    <option value="image">Image (PNG/BMP)</option>
+    <option value="audio">Audio (WAV)</option>
+    <option value="text">Text (TXT)</option>
+    <option value="video">Video (AVI)</option>
+  </select>
+
+  <label>LSB bits (used when embedding)</label>
+  <input type="number" name="lsb_bits" min="1" max="2" value="1">
+
+  <label>Recipient RSA private key (PEM)</label>
+  <textarea name="private_key" rows="10" placeholder="-----BEGIN PRIVATE KEY-----..." required></textarea>
+
+  <button type="submit">Extract & Decrypt</button>
+</form>
+
+{% if result %}
+  <h3>Recovered message</h3>
+  <pre>{{ result }}</pre>
+{% endif %}
+{% endblock %}

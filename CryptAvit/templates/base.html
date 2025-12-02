@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cryptAVIT</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>cryptAVIT</h1>
+    <nav>
+      <a href="/genkeys">Generate Keys</a>
+      <a href="/encrypt">Encrypt & Hide</a>
+      <a href="/decrypt">Extract & Decrypt</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alerts">
+          {% for cat,msg in messages %}
+            <div class="alert {{cat}}">{{msg}}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <script src="/static/script.js"></script>
+</body>
+</html>
