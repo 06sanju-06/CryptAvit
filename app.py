@@ -166,7 +166,8 @@ def decrypt():
     result = None
     if request.method == "POST":
         carrier = request.files.get("carrier")
-        priv_key_pem = request.form.get("private_key") or ""
+        priv_key_pem = request.form.get("private_key") or ''
+        passphrase = request.form.get('passphrase') or ''
         carrier_type = request.form.get("carrier_type")
         lsb_bits = int(request.form.get("lsb_bits") or 1)
 
@@ -177,7 +178,7 @@ def decrypt():
         if not carrier or carrier.filename == "":
             flash("Please upload the carrier file", "danger")
             return redirect(request.url)
-
+        pw = passphrase.encode('utf-8') if passphrase else None
         filename = secure_filename(carrier.filename)
         ext = filename.rsplit(".", 1)[-1].lower()
 
@@ -206,10 +207,13 @@ def decrypt():
 
             plaintext = hybrid_decrypt_package(
                 package,
-                priv_key_pem.encode("utf-8"),
+                priv_key_pem.encode("utf-8"),password=pw
             )
             result = plaintext.decode("utf-8", errors="replace")
-
+        except ValueError as ve:
+            # common for wrong passphrase / no key / parse failures
+            flash('Failed to extract/decrypt: ' + str(ve), 'danger')
+            return redirect(request.url)
         except Exception as e:
             flash("Failed to extract/decrypt: " + str(e), "danger")
             return redirect(request.url)

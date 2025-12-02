@@ -1,37 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
+<section class="card">
+  <h2>Extract & Decrypt</h2>
+  <form method="post" enctype="multipart/form-data" class="form">
+    <label>Carrier with hidden data</label>
+    <input type="file" name="carrier" required>
 
-<h2>Extract & Decrypt</h2>
+    <label>Carrier type</label>
+    <select name="carrier_type">
+      <option value="image">Image (PNG/JPEG/BMP)</option>
+      <option value="audio">Audio (WAV)</option>
+      <option value="text">Text (TXT)</option>
+      <option value="video">Video (AVI)</option>
+    </select>
 
-<form method="post" enctype="multipart/form-data">
+    <label>LSB bits (used when embedding)</label>
+    <input type="number" name="lsb_bits" min="1" max="2" value="1">
 
-  <label>Carrier file (image/audio/text/video)</label>
-  <input type="file" name="carrier" accept=".png,.jpg,.jpeg,.bmp,.wav,.txt,.avi" required>
-  <small style="display:block;margin-bottom:10px;color:#888;">
-    For images, upload the <strong>stego PNG</strong> you got after encryption.
-    (JPG inputs are converted to PNG during encryption).
-  </small>
+    <label>Recipient RSA private key (PEM)</label>
+    <textarea name="private_key" rows="10" placeholder="-----BEGIN PRIVATE KEY-----." required></textarea>
 
-  <label>Carrier type</label>
-  <select name="carrier_type">
-    <option value="image">Image (PNG/JPG/JPEG/BMP – stego must be PNG)</option>
-    <option value="audio">Audio (WAV)</option>
-    <option value="text">Text (TXT)</option>
-    <option value="video">Video (AVI)</option>
-  </select>
+    <label>Private key passphrase (if PEM is encrypted)</label>
+    <input type="password" name="passphrase" placeholder="Enter passphrase (leave empty if not encrypted)">
 
-  <label>LSB bits (same value used during encryption)</label>
-  <input type="number" name="lsb_bits" min="1" max="2" value="1">
+    <button type="submit" class="btn">Extract & Decrypt</button>
+  </form>
 
-  <label>Your RSA Private Key (PEM)</label>
-  <textarea name="private_key" rows="10" placeholder="-----BEGIN PRIVATE KEY-----..." required></textarea>
-   	
-  <button type="submit">Extract & Decrypt</button>
-</form>
-
-{% if result %}
-  <h3>Recovered Message</h3>
-  <pre>{{ result }}</pre>
-{% endif %}
-
+  {% if result %}
+    <h3>Recovered message</h3>
+    <pre>{{ result }}</pre>
+  {% endif %}
+</section>
 {% endblock %}

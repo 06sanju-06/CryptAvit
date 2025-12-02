@@ -102,7 +102,7 @@ def hybrid_decrypt_package(package_bytes: bytes, recipient_priv_pem: bytes, pass
     Return plaintext bytes (decompressed if meta says so).
     """
     wrapped_key, nonce, ciphertext, meta = parse_package(package_bytes)
-    priv = serialization.load_pem_private_key(recipient_priv_pem, password=None)
+    priv = serialization.load_pem_private_key(recipient_priv_pem, password=password)
     aes_key = priv.decrypt(
         wrapped_key,
         padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), algorithm=hashes.SHA256(), label=None),
