@@ -385,3 +385,109 @@ pre {
         transform: translate3d(-10px, -20px, 0) scale(1);
     }
 }
+
+/* =========================
+   THEMED SELECT / DROPDOWN
+   (Place near end so it overrides earlier defaults)
+   ========================= */
+
+/* Wrapper class (optional) — if you wrap the select in .select-wrapper it displays a custom caret */
+.select-wrapper {
+    position: relative;
+}
+
+/* Base select styling to match the theme */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(148,163,184,0.6);
+    background: linear-gradient(180deg, rgba(6,10,25,0.95), rgba(10,14,30,0.95));
+    color: var(--text-main);
+    font-size: 14px;
+    line-height: 1.2;
+    z-index: 1000;
+    position: relative;
+    box-shadow:
+        inset 0 0 0 1px rgba(15,23,42,0.9),
+        0 6px 20px rgba(2,6,23,0.6);
+    cursor: pointer;
+}
+
+/* Hide default IE/Edge expand icon */
+select::-ms-expand {
+    display: none;
+}
+
+/* Add a soft caret (using the wrapper pseudo-element) */
+.select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: rgba(229,237,255,0.9);
+    font-size: 14px;
+}
+
+/* Option list styling (works on modern desktop browsers) */
+select option {
+    background-color: #071026;
+    color: var(--text-main);
+    padding: 8px 12px;
+    font-weight: 600;
+}
+
+/* Hover / focus states inside the dropdown */
+select option:hover,
+select option:focus {
+    background-color: #123041;
+    color: #ffffff;
+}
+
+/* Selected option highlight (when open) */
+select option:checked {
+    background-color: #1e3a5a;
+    color: #fff;
+}
+
+/* Focus styling for the closed select box */
+select:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(29,79,255,0.12),
+        0 18px 50px rgba(2,6,23,0.9);
+}
+
+/* Ensure parent containers don't clip the dropdown list */
+form, .container {
+    overflow: visible;
+}
+
+/* If the native dropdown still gets clipped by overflow or stacking contexts,
+   you can add this small rule to increase stacking context for the form area */
+form {
+    z-index: 10;
+}
+
+/* Safari-specific hack to ensure dark select background */
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    select, select option {
+      background-color: #071026 !important;
+      color: var(--text-main) !important;
+    }
+  }
+}
+
+/* Optional: smoother transition on focus */
+select, select option {
+    transition: background 160ms ease, color 160ms ease;
+}
+
+/* End of stylesheet */
