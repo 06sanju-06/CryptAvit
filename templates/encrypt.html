@@ -20,7 +20,7 @@
 
   <label>Carrier type</label>
   <select name="carrier_type">
-    <option value="image">Image (PNG/JPG/JPEG/BMP – output PNG)</option>
+    <option value="image">Image (PNG/JPG/JPEG – output PNG)</option>
     <option value="audio">Audio (WAV)</option>
     <option value="text">Text (TXT)</option>
     <option value="video">Video (AVI)</option>
@@ -29,10 +29,7 @@
   <label>LSB bits (1 recommended)</label>
   <input type="number" name="lsb_bits" min="1" max="2" value="1">
 
-  <label>
-    <input type="checkbox" name="compress">
-    Compress message (zlib)
-  </label>
+ 
 
   <button type="submit">Encrypt &amp; Download stego file</button>
 </form>
